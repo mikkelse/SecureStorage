@@ -11,6 +11,8 @@ import Security
 /// SecureStorage wraps keychain access for storing string values securely in the device key chain.
 public struct SecureStorage {
 
+    public init() {}
+
     /// Store the given value for the given key.
     ///
     /// Storing a value for a key that already exists is considered an erro and will result in ``SecureStorage.Error.duplicateItem``.
