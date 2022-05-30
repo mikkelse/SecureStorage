@@ -9,7 +9,7 @@ import Foundation
 import Security
 
 /// SecureStorage wraps keychain access for storing string values securely in the device key chain.
-struct SecureStorage {
+public struct SecureStorage {
 
     /// Store the given value for the given key.
     ///
@@ -18,7 +18,7 @@ struct SecureStorage {
     /// - parameter value: The string value to store.
     /// - parameter key: The key to store the value for.
     /// - throws SecureStorage.Error
-    func store(value: String, for key: String) throws {
+    public func store(value: String, for key: String) throws {
 
         guard let data = value.data(using: .utf8) else {
             throw Error.internalError("Failed to create Data representation of value for key: \(key)")
@@ -39,7 +39,7 @@ struct SecureStorage {
     /// Trying to retrieving a value for a key that does not exist will result in ``SecureStorage.Error.itemNotFound``.
     /// - parameter key: The key to retrieve the value for.
     /// - throws SecureStorage.Error
-    func retrieveValue(for key: String) throws -> String {
+    public func retrieveValue(for key: String) throws -> String {
 
         let query = [
           kSecClass: kSecClassGenericPassword,
@@ -64,7 +64,7 @@ struct SecureStorage {
     /// - parameter value: The value to update for the given key.
     /// - parameter key: The key to update the value for.
     /// - throws SecureStorage.error
-    func update(with value: String, for key: String) throws {
+    public func update(with value: String, for key: String) throws {
 
         guard let data = value.data(using: .utf8) else {
             throw Error.internalError("Failed to create data representation of value")
@@ -88,7 +88,7 @@ struct SecureStorage {
     /// Trying to retrieving a value for a key that does not exist will result in ``SecureStorage.Error.itemNotFound``.
     /// - parameter key: The key to delete the value for.
     /// - throws SecureStorage.error
-    func deleteValue(for key: String) throws {
+    public func deleteValue(for key: String) throws {
         let query = [
           kSecClass: kSecClassGenericPassword,
           kSecAttrService:  key,
@@ -101,7 +101,7 @@ struct SecureStorage {
 
 extension SecureStorage {
 
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
 
         /// An item already exists for the given key.
         case duplicateItem(String)
